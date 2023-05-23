@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Playlist
-//
-//  Created by Kayla Serioso on 5/23/23.
-//
-
 import UIKit
 
 @main
