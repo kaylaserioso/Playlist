@@ -48,6 +48,10 @@ extension PlaylistViewController: UITableViewDelegate {
 extension PlaylistViewController: PlaylistViewModelDelegate {
     func songDidUpdate(index: Int) {
         DispatchQueue.main.async {
+            guard let indexPaths = self.tableView.indexPathsForVisibleRows,
+                  indexPaths.contains(where: { $0.row == index })
+            else { return }
+            
             self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
         }
     }
