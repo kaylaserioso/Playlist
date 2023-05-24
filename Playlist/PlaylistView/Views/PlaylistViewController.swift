@@ -9,6 +9,8 @@ class PlaylistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(UINib(nibName: "SongViewCell", bundle: nil), forCellReuseIdentifier: SongViewCell.reuseIdentifier)
+        
         viewModel?.delegate = self
         viewModel?.getSongList(completion: { [weak self] _, error in
             if let error {
@@ -49,10 +51,12 @@ extension PlaylistViewController: PlaylistViewModelDelegate {
     func songDidUpdate(index: Int) {
         DispatchQueue.main.async {
             guard let indexPaths = self.tableView.indexPathsForVisibleRows,
-                  indexPaths.contains(where: { $0.row == index })
+                  indexPaths.contains(where: { $0.row == index }),
+                  let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SongViewCell,
+                  let songViewModel = self.viewModel?.getSongCellViewModel(forIndex: index)
             else { return }
             
-            self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+            cell.updateViewModel(songViewModel)
         }
     }
 }

@@ -11,11 +11,15 @@ class SongViewCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    @IBOutlet weak var progressView: ProgressView!
     
     weak var delegate: SongViewCellDelegate?
     
     private var viewModel: SongCellViewModelProtocol?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     func updateViewModel(_ viewModel: SongCellViewModelProtocol?) {
         self.viewModel = viewModel
@@ -55,8 +59,8 @@ private extension SongViewCell {
         case .toDownload:
             actionButton.setImage(UIImage(named: "DownloadIcon"), for: .normal)
             stopLoadingView()
-        case .downloading:
-            startLoadingView()
+        case .downloading(let progress):
+            updateLoadingView(progress: progress)
         case .paused:
             actionButton.setImage(UIImage(named: "PlayIcon"), for: .normal)
             stopLoadingView()
@@ -66,13 +70,14 @@ private extension SongViewCell {
         }
     }
     
-    func startLoadingView() {
+    func updateLoadingView(progress: CGFloat) {
         actionButton.isHidden = true
-        loadingView.startAnimating()
+        progressView.isHidden = false
+        progressView.progressAnimation(progress: progress)
     }
     
     func stopLoadingView() {
-        loadingView.stopAnimating()
+        progressView.isHidden = true
         actionButton.isHidden = false
     }
 }

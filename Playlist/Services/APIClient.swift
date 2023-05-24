@@ -1,14 +1,6 @@
 import Foundation
 
-public protocol DownloadAPIClientDelegate: AnyObject {
-    func downloadAPIDidReceiveProgress(_ progress: Float)
-    func downloadAPIDidFinishDownload(_ fileName: String, savedURL: URL)
-    func downloadAPIDidReceiveError(_ error: Error?)
-}
-
 public class APIClient {
-    weak var downloadTaskDelegate: DownloadAPIClientDelegate?
-    
     public func request<Response: Decodable>(_ request: URLRequest,
                                              type: Response.Type,
                                              completion: @escaping (Response?, Error?) -> Void) {
@@ -39,10 +31,5 @@ public class APIClient {
             print("---------------------------------------------------------------")
         }
         task.resume()
-    }
-    
-    public func downloadFile(urlSession: URLSession, request: URLRequest) {
-        let task = urlSession.downloadTask(with: request)
-        
     }
 }
