@@ -31,25 +31,30 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0Q-XF-oRT">
                                                     <rect key="frame" x="8" y="4" width="377" height="112"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8N5-UM-0lg">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8N5-UM-0lg">
                                                             <rect key="frame" x="15" y="15" width="46" height="23"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJn-3Y-VHB">
-                                                            <rect key="frame" x="338" y="83" width="24" height="14"/>
+                                                            <rect key="frame" x="338.33333333333331" y="67.666666666666671" width="28.666666666666686" height="34.333333333333329"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="plain"/>
+                                                            <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapActionButton:" destination="hTc-ru-M3I" eventType="touchUpInside" id="B4i-Uw-gHn"/>
                                                             </connections>
                                                         </button>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="PyP-gW-REX">
+                                                            <rect key="frame" x="342.66666666666669" y="75" width="20" height="20"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemGray2Color"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="SJn-3Y-VHB" secondAttribute="bottom" constant="15" id="bEG-Ic-Oyf"/>
-                                                        <constraint firstAttribute="trailing" secondItem="SJn-3Y-VHB" secondAttribute="trailing" constant="15" id="mIJ-9z-aGu"/>
+                                                        <constraint firstItem="PyP-gW-REX" firstAttribute="centerY" secondItem="SJn-3Y-VHB" secondAttribute="centerY" id="A63-U2-LnE"/>
+                                                        <constraint firstItem="PyP-gW-REX" firstAttribute="centerX" secondItem="SJn-3Y-VHB" secondAttribute="centerX" id="S2O-Lx-1TD"/>
+                                                        <constraint firstAttribute="bottom" secondItem="SJn-3Y-VHB" secondAttribute="bottom" constant="10" id="bEG-Ic-Oyf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="SJn-3Y-VHB" secondAttribute="trailing" constant="10" id="mIJ-9z-aGu"/>
                                                         <constraint firstItem="8N5-UM-0lg" firstAttribute="top" secondItem="i0Q-XF-oRT" secondAttribute="top" constant="15" id="t6b-Ry-HxH"/>
                                                         <constraint firstItem="8N5-UM-0lg" firstAttribute="leading" secondItem="i0Q-XF-oRT" secondAttribute="leading" constant="15" id="yCc-0W-MMp"/>
                                                     </constraints>
@@ -69,6 +74,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="actionButton" destination="SJn-3Y-VHB" id="zJX-El-aQP"/>
+                                            <outlet property="loadingView" destination="PyP-gW-REX" id="V95-fa-CYL"/>
                                             <outlet property="nameLabel" destination="8N5-UM-0lg" id="ESr-OB-1gS"/>
                                         </connections>
                                     </tableViewCell>
