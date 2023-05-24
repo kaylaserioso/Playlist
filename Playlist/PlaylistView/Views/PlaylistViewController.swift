@@ -25,7 +25,7 @@ class PlaylistViewController: UIViewController {
 
 extension PlaylistViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.songList.count ?? 0
+        return viewModel?.getAllSongs().count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,10 +59,10 @@ extension PlaylistViewController: SongViewCellDelegate {
     }
     
     func didTapPause(song: Song) {
-        
+        viewModel?.pauseSong(song)
     }
     
     func didTapPlay(song: Song) {
-        
+        viewModel?.playSong(song)
     }
 }

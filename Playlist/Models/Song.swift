@@ -4,7 +4,7 @@ public struct Song: Codable {
     let id: String
     let name: String
     let audioUrl: String
-    var localUrl: String?
+    var localFileName: String?
     
     enum CodingKeys: String, CodingKey {
         case id

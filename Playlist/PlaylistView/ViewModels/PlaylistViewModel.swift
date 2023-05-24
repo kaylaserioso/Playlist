@@ -8,17 +8,22 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
     
     private var songService: SongServiceProtocol
     private var downloadFileManager: DownloadFileManagerProtocol
+    private var audioManager: AudioPlayerManagerProtocol
     
     weak var delegate: PlaylistViewModelDelegate?
-    var songList = [Song]()
     
+    private var songList = [Song]()
     private var songState = [String: SongState]()
-    private var stateReadWriteThread = DispatchQueue(label: "playlist.song.state.queue")
+    private var songReadWriteThread = DispatchQueue(label: "playlist.song.state.queue")
+    private var lastSongPlayed: Song?
     
-    init(songService: SongServiceProtocol, downloadFileManager: DownloadFileManagerProtocol) {
+    init(songService: SongServiceProtocol,
+         downloadFileManager: DownloadFileManagerProtocol = Dependency.downloadFileManager,
+         audioPlayerManager: AudioPlayerManagerProtocol = Dependency.audioPlayerManager) {
         self.songService = songService
-        
         self.downloadFileManager = downloadFileManager
+        self.audioManager = audioPlayerManager
+        
         self.downloadFileManager.delegate = self
     }
     
@@ -42,8 +47,35 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
         downloadFileManager.downloadFile(fromUrl: url)
     }
     
+    func playSong(_ song: Song) {
+        guard let fileName = song.localFileName else { return }
+        
+        if let lastSongPlayed, lastSongPlayed.id != song.id {
+            pauseSong(lastSongPlayed)
+        }
+        
+        let isSuccess = audioManager.playAudio(withFileName: fileName)
+        if isSuccess {
+            lastSongPlayed = song
+        }
+        
+        setSongState(.playing, forSong: song)
+        if let index = getIndexForSong(withUrlString: song.audioUrl) {
+            updateSong(song, at: index)
+        }
+    }
+    
+    func pauseSong(_ song: Song) {
+        audioManager.pauseCurrentAudio()
+        
+        setSongState(.paused, forSong: song)
+        if let index = getIndexForSong(withUrlString: song.audioUrl) {
+            updateSong(song, at: index)
+        }
+    }
+    
     func getSongCellViewModel(forIndex index: Int) -> SongCellViewModelProtocol? {
-        let song = songList[index]
+        let song = getSong(at: index)
         guard let state = getSongState(song) else {
             return nil
         }
@@ -57,8 +89,21 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
         }
     }
     
+    func getAllSongs() -> [Song] {
+        songReadWriteThread.sync {
+            return songList
+        }
+    }
+    
+    
+    func getSong(at index: Int) -> Song {
+        songReadWriteThread.sync {
+            return songList[index]
+        }
+    }
+    
     func getSongState(_ song: Song) -> SongState? {
-        stateReadWriteThread.sync {
+        songReadWriteThread.sync {
             return songState[song.id]
         }
     }
@@ -72,7 +117,14 @@ extension PlaylistViewModel: DownloadFileManagerDelegate {
         updateSongUI(withUrlString: urlString)
     }
     
-    func didFinishDownload(forUrl url: URL, localUrl: URL) {
+    func didFinishDownload(forUrl url: URL, localFileName: String) {
+        if let index = getIndexForSong(withUrlString: url.absoluteString) {
+            var song = getSong(at: index)
+            song.localFileName = localFileName
+            
+            updateSong(song, at: index)
+        }
+        
         let urlString = url.absoluteString
         setSongState(.paused, forDownloadUrlString: urlString)
         
@@ -89,7 +141,7 @@ extension PlaylistViewModel: DownloadFileManagerDelegate {
 
 private extension PlaylistViewModel {
     func resetSongState() {
-        stateReadWriteThread.sync {
+        songReadWriteThread.sync {
             self.songState = [:]
             self.songList.forEach({ song in
                 self.songState[song.id] = .toDownload
@@ -100,19 +152,32 @@ private extension PlaylistViewModel {
     func setSongState(_ state: SongState, forDownloadUrlString urlString: String) {
         guard let index = getIndexForSong(withUrlString: urlString) else { return }
         
-        let song = songList[index]
+        let song = getSong(at: index)
         setSongState(state, forSong: song)
     }
     
     func setSongState(_ state: SongState, forSong song: Song) {
-        stateReadWriteThread.sync {
+        songReadWriteThread.sync {
             songState[song.id] = state
         }
     }
     
     func updateSongUI(withUrlString urlString: String) {
         if let songIndex = getIndexForSong(withUrlString: urlString) {
-            delegate?.songDidUpdate(index: songIndex)
+            updateSongUI(at: songIndex)
         }
+    }
+    
+    func updateSongUI(at index: Int) {
+        delegate?.songDidUpdate(index: index)
+    }
+    
+    func updateSong(_ song: Song, at index: Int) {
+        songReadWriteThread.sync {
+            songList.remove(at: index)
+            songList.insert(song, at: index)
+        }
+        
+        updateSongUI(at: index)
     }
 }

@@ -1,3 +1,6 @@
 import Foundation
 
-var downloadFileManager: DownloadFileManagerProtocol = DownloadFileManager()
+enum Dependency {
+    static var downloadFileManager: DownloadFileManagerProtocol = DownloadFileManager()
+    static var audioPlayerManager: AudioPlayerManagerProtocol = AudioPlayerManager()
+}

@@ -2,7 +2,7 @@ import Foundation
 
 public protocol DownloadFileManagerDelegate: AnyObject {
     func didReceiveProgress(_ progress: CGFloat, forUrl url: URL)
-    func didFinishDownload(forUrl url: URL, localUrl: URL)
+    func didFinishDownload(forUrl url: URL, localFileName: String)
     func didReceiveError(_ error: Error, forUrl url: URL)
 }
 
@@ -24,7 +24,6 @@ public enum DownloadState: Equatable {
 public class DownloadFileManager: NSObject, DownloadFileManagerProtocol {
     public weak var delegate: DownloadFileManagerDelegate?
     
-//    lazy var delegateOperationQueue = OperationQueue()
     lazy var urlSession = URLSession(configuration: .default,
                                      delegate: self,
                                      delegateQueue: nil)
@@ -70,11 +69,12 @@ extension DownloadFileManager: URLSessionDownloadDelegate {
                                                            in: .userDomainMask,
                                                            appropriateFor: nil,
                                                            create: false)
-            let savedUrl = documentsURL.appendingPathComponent(location.lastPathComponent)
+            let fileName = location.lastPathComponent
+            let savedUrl = documentsURL.appendingPathComponent(fileName)
             try FileManager.default.moveItem(at: location, to: savedUrl)
             
             setDownloadState(.success, forUrlString: requestUrl.absoluteString)
-            delegate?.didFinishDownload(forUrl: requestUrl, localUrl: savedUrl)
+            delegate?.didFinishDownload(forUrl: requestUrl, localFileName: fileName)
         } catch {
             setDownloadState(.error(error: error), forUrlString: requestUrl.absoluteString)
             delegate?.didReceiveError(error, forUrl: requestUrl)

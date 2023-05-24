@@ -32,6 +32,8 @@
 		C4C0D7882A1D532200FFE563 /* DownloadFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7872A1D532200FFE563 /* DownloadFileManager.swift */; };
 		C4C0D78A2A1D623400FFE563 /* DownloadFileManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7892A1D623400FFE563 /* DownloadFileManagerProtocol.swift */; };
 		C4C0D78E2A1DDBC200FFE563 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D78D2A1DDBC200FFE563 /* Dependency.swift */; };
+		C4C0D7902A1DECA400FFE563 /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D78F2A1DECA400FFE563 /* AudioPlayerManager.swift */; };
+		C4C0D7922A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7912A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		C4C0D7872A1D532200FFE563 /* DownloadFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileManager.swift; sourceTree = "<group>"; };
 		C4C0D7892A1D623400FFE563 /* DownloadFileManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileManagerProtocol.swift; sourceTree = "<group>"; };
 		C4C0D78D2A1DDBC200FFE563 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		C4C0D78F2A1DECA400FFE563 /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
+		C4C0D7912A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManagerProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,7 @@
 				C4C0D76A2A1CF47600FFE563 /* APIEndpoint.swift */,
 				C4C0D76F2A1CF69F00FFE563 /* SongService.swift */,
 				C4C0D7872A1D532200FFE563 /* DownloadFileManager.swift */,
+				C4C0D78F2A1DECA400FFE563 /* AudioPlayerManager.swift */,
 				C4C0D7772A1CFBFC00FFE563 /* Protocols */,
 				C4C0D7742A1CFA8300FFE563 /* Responses */,
 			);
@@ -214,6 +219,7 @@
 			children = (
 				C4C0D7782A1D0E7700FFE563 /* SongServiceProtocol.swift */,
 				C4C0D7892A1D623400FFE563 /* DownloadFileManagerProtocol.swift */,
+				C4C0D7912A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -385,11 +391,13 @@
 				C4C0D7812A1D32FF00FFE563 /* SongCellViewModel.swift in Sources */,
 				C4C0D77D2A1D153200FFE563 /* SongViewCell.swift in Sources */,
 				C4C0D76B2A1CF47600FFE563 /* APIEndpoint.swift in Sources */,
+				C4C0D7902A1DECA400FFE563 /* AudioPlayerManager.swift in Sources */,
 				C4C0D7792A1D0E7700FFE563 /* SongServiceProtocol.swift in Sources */,
 				C4C0D7392A1CB8EB00FFE563 /* PlaylistViewController.swift in Sources */,
 				C4C0D7842A1D332F00FFE563 /* SongCellViewModelProtocol.swift in Sources */,
 				C4C0D78A2A1D623400FFE563 /* DownloadFileManagerProtocol.swift in Sources */,
 				C4C0D76E2A1CF52B00FFE563 /* Config.swift in Sources */,
+				C4C0D7922A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift in Sources */,
 				C4C0D7862A1D334C00FFE563 /* PlaylistViewModelProtocol.swift in Sources */,
 				C4C0D7702A1CF69F00FFE563 /* SongService.swift in Sources */,
 				C4C0D77F2A1D314C00FFE563 /* SongState.swift in Sources */,

@@ -13,8 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               let playlistViewController = UIStoryboard(name: "PlaylistScreen", bundle: nil).instantiateInitialViewController() as? PlaylistViewController
         else { return }
         
-        playlistViewController.viewModel = PlaylistViewModel(songService: SongService(),
-                                                             downloadFileManager: DownloadFileManager())
+        playlistViewController.viewModel = PlaylistViewModel(songService: SongService())
         
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = playlistViewController
