@@ -8,7 +8,12 @@ protocol PersistenceManagerProtocol {
     func getAll<T: NSManagedObject>(context: NSManagedObjectContext,
                                     type: T.Type,
                                     sortDescriptors: [NSSortDescriptor]?) -> [T]?
-    func getModel<T: NSManagedObject>(context: NSManagedObjectContext, id: String, type: T.Type) -> T?
+    func getModel<T: NSManagedObject>(context: NSManagedObjectContext,
+                                      id: String,
+                                      type: T.Type) -> T?
+    func getModels<T: NSManagedObject>(context: NSManagedObjectContext,
+                                       predicate: NSPredicate,
+                                       type: T.Type) -> [T]?
     func save(context: NSManagedObjectContext)
     func saveMainContext()
 }

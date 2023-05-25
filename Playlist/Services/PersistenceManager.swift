@@ -39,13 +39,28 @@ class PersistenceManager: PersistenceManagerProtocol {
         }
     }
     
-    func getModel<T: NSManagedObject>(context: NSManagedObjectContext, id: String, type: T.Type) -> T? {
+    func getModel<T: NSManagedObject>(context: NSManagedObjectContext,
+                                      id: String,
+                                      type: T.Type) -> T? {
         let predicate = NSPredicate(format: "id == %@", id)
         let fetchRequest: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
         fetchRequest.predicate = predicate
         
         do {
             return try context.fetch(fetchRequest).first
+        } catch {
+            return nil
+        }
+    }
+    
+    func getModels<T: NSManagedObject>(context: NSManagedObjectContext,
+                                       predicate: NSPredicate,
+                                       type: T.Type) -> [T]? {
+        let fetchRequest: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+        fetchRequest.predicate = predicate
+        
+        do {
+            return try context.fetch(fetchRequest)
         } catch {
             return nil
         }

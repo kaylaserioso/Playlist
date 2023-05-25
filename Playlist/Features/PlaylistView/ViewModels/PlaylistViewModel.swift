@@ -104,11 +104,12 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
         return SongCellViewModel(song: song, state: state)
     }
     
+    /**
+     Returns index of song from list. Expected to be called from main thread.
+     */
     func getIndexForSong(withUrlString url: String) -> Int? {
-        DispatchQueue.main.sync {
-            return self.songList.firstIndex { song in
-                song.audioUrlString == url
-            }
+        return self.songList.firstIndex { song in
+            song.audioUrlString == url
         }
     }
     
@@ -129,30 +130,61 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
 extension PlaylistViewModel: DownloadFileManagerDelegate {
     func didReceiveProgress(_ progress: CGFloat, forUrl url: URL) {
         let urlString = url.absoluteString
-        setSongState(.downloading(progress: progress), forDownloadUrlString: urlString)
+        if let songId = getSongIdFromBackgroundQueue(withAudioUrlString: url.absoluteString) {
+            setSongState(.downloading(progress: progress), forSongId: songId)
+        }
         
-        updateSongUI(withUrlString: urlString)
+        DispatchQueue.main.async {
+            self.updateSongUI(withUrlString: urlString)
+        }
     }
     
     func didFinishDownload(forUrl url: URL, localFileName: String) {
-        if let index = getIndexForSong(withUrlString: url.absoluteString) {
-            let song = getSong(at: index)
-            updateDatabaseSong(song, withLocalFileName: localFileName)
+        if let songId = getSongIdFromBackgroundQueue(withAudioUrlString: url.absoluteString) {
+            updateDatabaseSong(withId: songId, withLocalFileName: localFileName)
             
             DispatchQueue.main.async { [weak self] in
-                if let songId = song.id, let updatedSong = self?.getDatabaseSong(withId: songId) {
-                    self?.setSongStateFromBackgroundQueue(.paused, forSong: updatedSong)
+                if let updatedSong = self?.getDatabaseSong(withId: songId), let index = self?.getIndexForSong(withUrlString: url.absoluteString) {
+                    self?.setSongState(.paused, forSongId: songId)
                     self?.updateSongList(updatedSong, at: index)
                 }
             }
         }
     }
     
+    func getSongIdFromBackgroundQueue(withAudioUrlString urlString: String) -> String? {
+        let backgroundContext = persistenceManager.backgroundTaskManagedContext
+        var songId: String?
+        backgroundContext.performAndWait {
+            let predicate = NSPredicate(format: "audioUrlString == %@", urlString)
+            songId = self.persistenceManager.getModels(context: backgroundContext,
+                                                     predicate: predicate,
+                                                       type: Song.self)?.first?.id
+        }
+        
+        return songId
+    }
+    
+    func getSongFromBackgroundQueue(withAudioUrlString urlString: String) -> Song? {
+        let backgroundContext = persistenceManager.backgroundTaskManagedContext
+        var song: Song?
+        backgroundContext.performAndWait {
+            let predicate = NSPredicate(format: "audioUrlString == %@", urlString)
+            song = self.persistenceManager.getModels(context: backgroundContext,
+                                                     predicate: predicate,
+                                                     type: Song.self)?.first
+        }
+
+        return song
+    }
+    
     func didReceiveError(_ error: Error, forUrl url: URL) {
         let urlString = url.absoluteString
         setSongState(.toDownload, forDownloadUrlString: urlString)
         
-        updateSongUI(withUrlString: urlString)
+        DispatchQueue.main.async {
+            self.updateSongUI(withUrlString: urlString)
+        }
     }
 }
 
@@ -244,12 +276,11 @@ private extension PlaylistViewModel {
     /**
      Will update file name of song object from the database.
      */
-    func updateDatabaseSong(_ song: Song, withLocalFileName fileName: String) {
-        let songObjectId = song.objectID
+    func updateDatabaseSong(withId id: String, withLocalFileName fileName: String) {
         let backgroundContext = persistenceManager.backgroundTaskManagedContext
         
         backgroundContext.performAndWait {
-            let contextSong = backgroundContext.object(with: songObjectId) as? Song
+            let contextSong = self.persistenceManager.getModel(context: backgroundContext, id: id, type: Song.self)
             contextSong?.localFileName = fileName
             
             try? backgroundContext.save()
@@ -306,10 +337,15 @@ private extension PlaylistViewModel {
      Returns song state based on download URL. Expected to be called from background queue
      */
     func setSongState(_ state: SongState, forDownloadUrlString urlString: String) {
-        guard let index = getIndexForSong(withUrlString: urlString) else { return }
-        
-        let song = getSong(at: index)
-        setSongStateFromBackgroundQueue(state, forSong: song)
+        if let song = getSongFromBackgroundQueue(withAudioUrlString: urlString) {
+            setSongStateFromBackgroundQueue(state, forSong: song)
+        }
+    }
+    
+    func setSongState(_ state: SongState, forSongId id: String) {
+        songReadWriteThread.sync {
+            songState[id] = state
+        }
     }
     
     func setSongStateFromMainQueue(_ state: SongState, forSong song: Song) {
@@ -332,17 +368,26 @@ private extension PlaylistViewModel {
             }
         }
     }
-    
+   
+    /**
+     Notifies delegate on update for song with specific URL. Expected to be called from main thread.
+     */
     func updateSongUI(withUrlString urlString: String) {
         if let songIndex = getIndexForSong(withUrlString: urlString) {
             updateSongUI(at: songIndex)
         }
     }
     
+    /**
+     Notifies delegate on update for song with specific index. Expected to be called from main thread.
+     */
     func updateSongUI(at index: Int) {
         delegate?.songDidUpdate(index: index)
     }
     
+    /**
+     Replaces song from list at specific index and notifies delegate on update for song with specific index. Expected to be called from main thread.
+     */
     func updateSongList(_ song: Song, at index: Int) {
         songReadWriteThread.sync {
             songList.remove(at: index)
