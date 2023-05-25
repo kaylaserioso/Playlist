@@ -1,6 +1,10 @@
 import Foundation
 import AVFoundation
 
+public protocol AudioPlayerManagerDelegate: AnyObject {
+    func didFinishPlaying(audioWithFileName fileName: String?)
+}
+
 public class AudioPlayerManager: NSObject, AudioPlayerManagerProtocol {
     private var audioPlayer: AVAudioPlayer?
     private lazy var documentsUrl: URL? = {
@@ -8,6 +12,7 @@ public class AudioPlayerManager: NSObject, AudioPlayerManagerProtocol {
     }()
     
     public var currentlyPlayingAudioFileName: String?
+    public weak var delegate: AudioPlayerManagerDelegate?
     
     override init() {
         super.init()
@@ -44,7 +49,10 @@ public class AudioPlayerManager: NSObject, AudioPlayerManagerProtocol {
 }
 
 extension AudioPlayerManager: AVAudioPlayerDelegate {
-    
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        delegate?.didFinishPlaying(audioWithFileName: currentlyPlayingAudioFileName)
+        currentlyPlayingAudioFileName = nil
+    }
 }
 
 private extension AudioPlayerManager {

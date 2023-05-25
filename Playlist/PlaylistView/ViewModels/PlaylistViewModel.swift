@@ -29,6 +29,7 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
         self.persistenceManager = persistenceManager
         
         self.downloadFileManager.delegate = self
+        self.audioManager.delegate = self
     }
     
     /**
@@ -152,6 +153,14 @@ extension PlaylistViewModel: DownloadFileManagerDelegate {
         setSongState(.toDownload, forDownloadUrlString: urlString)
         
         updateSongUI(withUrlString: urlString)
+    }
+}
+
+extension PlaylistViewModel: AudioPlayerManagerDelegate {
+    func didFinishPlaying(audioWithFileName fileName: String?) {
+        if let currentSong = lastSongPlayed {
+            pauseSong(currentSong)
+        }
     }
 }
 
