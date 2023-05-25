@@ -150,12 +150,9 @@
 				C4C0D7932A1E0B5500FFE563 /* CommonViews */,
 				C4C0D7732A1CFA7200FFE563 /* Models */,
 				C4C0D7692A1CE41000FFE563 /* Services */,
-				C4C0D7642A1CDA2B00FFE563 /* PlaylistView */,
 				C4C0D76C2A1CF50000FFE563 /* Utilities */,
-				C4C0D73D2A1CB8F000FFE563 /* Assets.xcassets */,
-				C4C0D73F2A1CB8F000FFE563 /* LaunchScreen.storyboard */,
-				C4C0D7422A1CB8F000FFE563 /* Info.plist */,
-				C4C0D7B82A1E50D000FFE563 /* PlaylistDataModel.xcdatamodeld */,
+				C4C0D7C22A1F0B1200FFE563 /* Features */,
+				C4C0D7C32A1F0B1D00FFE563 /* Resources */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -207,6 +204,7 @@
 			children = (
 				C4C0D76D2A1CF52B00FFE563 /* Config.swift */,
 				C4C0D78D2A1DDBC200FFE563 /* Dependency.swift */,
+				C4C0D7C12A1F0AFC00FFE563 /* New Group */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -282,6 +280,32 @@
 				C4C0D7962A1E170900FFE563 /* SongViewCell.xib */,
 			);
 			path = SongViewCell;
+			sourceTree = "<group>";
+		};
+		C4C0D7C12A1F0AFC00FFE563 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		C4C0D7C22A1F0B1200FFE563 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				C4C0D7642A1CDA2B00FFE563 /* PlaylistView */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		C4C0D7C32A1F0B1D00FFE563 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C4C0D73D2A1CB8F000FFE563 /* Assets.xcassets */,
+				C4C0D73F2A1CB8F000FFE563 /* LaunchScreen.storyboard */,
+				C4C0D7422A1CB8F000FFE563 /* Info.plist */,
+				C4C0D7B82A1E50D000FFE563 /* PlaylistDataModel.xcdatamodeld */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -619,7 +643,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8S86GX6ABX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Playlist/Info.plist;
+				INFOPLIST_FILE = Playlist/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Playlist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -648,7 +672,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8S86GX6ABX;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Playlist/Info.plist;
+				INFOPLIST_FILE = Playlist/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Playlist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
