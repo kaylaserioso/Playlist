@@ -53,10 +53,17 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
      */
     func downloadSong(_ song: Song) {
         guard let urlString = song.audioUrlString,
-              let url = URL(string: urlString)
+              let url = URL(string: urlString),
+              let songId = song.id
         else { return }
         
         downloadFileManager.downloadFile(fromUrl: url)
+        setSongState(.downloading(progress: 0), forSongId: songId)
+        DispatchQueue.main.async {
+            if let index = self.getIndexForSong(withUrlString: urlString) {
+                self.updateSongUI(at: index)
+            }
+        }
     }
     
     /**
@@ -72,11 +79,11 @@ class PlaylistViewModel: PlaylistViewModelProtocol {
         let isSuccess = audioManager.playAudio(withFileName: fileName)
         if isSuccess {
             lastSongPlayed = song
-        }
-        
-        setSongStateFromMainQueue(.playing, forSong: song)
-        if let index = songList.firstIndex(of: song) {
-            delegate?.songDidUpdate(index: index)
+            
+            setSongStateFromMainQueue(.playing, forSong: song)
+            if let index = songList.firstIndex(of: song) {
+                delegate?.songDidUpdate(index: index)
+            }
         }
     }
     
