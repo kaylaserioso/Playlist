@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Song: Codable {
+public struct SongItemResponse: Codable {
     let id: String
     let name: String
     let audioUrl: String

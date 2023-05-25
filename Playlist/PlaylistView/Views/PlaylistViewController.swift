@@ -12,16 +12,7 @@ class PlaylistViewController: UIViewController {
         tableView.register(UINib(nibName: "SongViewCell", bundle: nil), forCellReuseIdentifier: SongViewCell.reuseIdentifier)
         
         viewModel?.delegate = self
-        viewModel?.getSongList(completion: { [weak self] _, error in
-            if let error {
-                //show error
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        })
+        viewModel?.refreshSongList()
     }
 }
 
@@ -48,6 +39,12 @@ extension PlaylistViewController: UITableViewDelegate {
 }
 
 extension PlaylistViewController: PlaylistViewModelDelegate {
+    func listDidUpdate() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func songDidUpdate(index: Int) {
         DispatchQueue.main.async {
             guard let indexPaths = self.tableView.indexPathsForVisibleRows,

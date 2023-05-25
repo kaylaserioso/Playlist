@@ -3,7 +3,7 @@ import Foundation
 protocol PlaylistViewModelProtocol {
     var delegate: PlaylistViewModelDelegate? { get set }
     
-    func getSongList(completion: @escaping ([Song], Error?) -> Void)
+    func refreshSongList()
     func getSongCellViewModel(forIndex index: Int) -> SongCellViewModelProtocol?
     func downloadSong(_ song: Song)
     func playSong(_ song: Song)

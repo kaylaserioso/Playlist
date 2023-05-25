@@ -21,7 +21,7 @@
 		C4C0D76B2A1CF47600FFE563 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D76A2A1CF47600FFE563 /* APIEndpoint.swift */; };
 		C4C0D76E2A1CF52B00FFE563 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D76D2A1CF52B00FFE563 /* Config.swift */; };
 		C4C0D7702A1CF69F00FFE563 /* SongService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D76F2A1CF69F00FFE563 /* SongService.swift */; };
-		C4C0D7722A1CFA3B00FFE563 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7712A1CFA3B00FFE563 /* Song.swift */; };
+		C4C0D7722A1CFA3B00FFE563 /* SongItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7712A1CFA3B00FFE563 /* SongItemResponse.swift */; };
 		C4C0D7762A1CFAAA00FFE563 /* SongListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7752A1CFAAA00FFE563 /* SongListResponse.swift */; };
 		C4C0D7792A1D0E7700FFE563 /* SongServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7782A1D0E7700FFE563 /* SongServiceProtocol.swift */; };
 		C4C0D77D2A1D153200FFE563 /* SongViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D77C2A1D153200FFE563 /* SongViewCell.swift */; };
@@ -36,6 +36,9 @@
 		C4C0D7922A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7912A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift */; };
 		C4C0D7952A1E0B6A00FFE563 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7942A1E0B6A00FFE563 /* ProgressView.swift */; };
 		C4C0D7972A1E170900FFE563 /* SongViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C0D7962A1E170900FFE563 /* SongViewCell.xib */; };
+		C4C0D7B52A1E4EE200FFE563 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7B42A1E4EE200FFE563 /* PersistenceManager.swift */; };
+		C4C0D7B72A1E4F2C00FFE563 /* PersistenceManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7B62A1E4F2C00FFE563 /* PersistenceManagerProtocol.swift */; };
+		C4C0D7BA2A1E50D000FFE563 /* PlaylistDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4C0D7B82A1E50D000FFE563 /* PlaylistDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +77,7 @@
 		C4C0D76A2A1CF47600FFE563 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		C4C0D76D2A1CF52B00FFE563 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C4C0D76F2A1CF69F00FFE563 /* SongService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongService.swift; sourceTree = "<group>"; };
-		C4C0D7712A1CFA3B00FFE563 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		C4C0D7712A1CFA3B00FFE563 /* SongItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongItemResponse.swift; sourceTree = "<group>"; };
 		C4C0D7752A1CFAAA00FFE563 /* SongListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListResponse.swift; sourceTree = "<group>"; };
 		C4C0D7782A1D0E7700FFE563 /* SongServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongServiceProtocol.swift; sourceTree = "<group>"; };
 		C4C0D77C2A1D153200FFE563 /* SongViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewCell.swift; sourceTree = "<group>"; };
@@ -89,6 +92,9 @@
 		C4C0D7912A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManagerProtocol.swift; sourceTree = "<group>"; };
 		C4C0D7942A1E0B6A00FFE563 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		C4C0D7962A1E170900FFE563 /* SongViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongViewCell.xib; sourceTree = "<group>"; };
+		C4C0D7B42A1E4EE200FFE563 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		C4C0D7B62A1E4F2C00FFE563 /* PersistenceManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManagerProtocol.swift; sourceTree = "<group>"; };
+		C4C0D7B92A1E50D000FFE563 /* PlaylistDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlaylistDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +155,7 @@
 				C4C0D73D2A1CB8F000FFE563 /* Assets.xcassets */,
 				C4C0D73F2A1CB8F000FFE563 /* LaunchScreen.storyboard */,
 				C4C0D7422A1CB8F000FFE563 /* Info.plist */,
+				C4C0D7B82A1E50D000FFE563 /* PlaylistDataModel.xcdatamodeld */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -188,6 +195,7 @@
 				C4C0D76F2A1CF69F00FFE563 /* SongService.swift */,
 				C4C0D7872A1D532200FFE563 /* DownloadFileManager.swift */,
 				C4C0D78F2A1DECA400FFE563 /* AudioPlayerManager.swift */,
+				C4C0D7B42A1E4EE200FFE563 /* PersistenceManager.swift */,
 				C4C0D7772A1CFBFC00FFE563 /* Protocols */,
 				C4C0D7742A1CFA8300FFE563 /* Responses */,
 			);
@@ -206,7 +214,6 @@
 		C4C0D7732A1CFA7200FFE563 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C4C0D7712A1CFA3B00FFE563 /* Song.swift */,
 				C4C0D77E2A1D314C00FFE563 /* SongState.swift */,
 			);
 			path = Models;
@@ -216,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				C4C0D7752A1CFAAA00FFE563 /* SongListResponse.swift */,
+				C4C0D7712A1CFA3B00FFE563 /* SongItemResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -226,6 +234,7 @@
 				C4C0D7782A1D0E7700FFE563 /* SongServiceProtocol.swift */,
 				C4C0D7892A1D623400FFE563 /* DownloadFileManagerProtocol.swift */,
 				C4C0D7912A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift */,
+				C4C0D7B62A1E4F2C00FFE563 /* PersistenceManagerProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -407,17 +416,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4C0D7722A1CFA3B00FFE563 /* Song.swift in Sources */,
+				C4C0D7722A1CFA3B00FFE563 /* SongItemResponse.swift in Sources */,
 				C4C0D7762A1CFAAA00FFE563 /* SongListResponse.swift in Sources */,
 				C4C0D78E2A1DDBC200FFE563 /* Dependency.swift in Sources */,
 				C4C0D7662A1CDA7100FFE563 /* PlaylistViewModel.swift in Sources */,
 				C4C0D7812A1D32FF00FFE563 /* SongCellViewModel.swift in Sources */,
 				C4C0D77D2A1D153200FFE563 /* SongViewCell.swift in Sources */,
+				C4C0D7BA2A1E50D000FFE563 /* PlaylistDataModel.xcdatamodeld in Sources */,
 				C4C0D76B2A1CF47600FFE563 /* APIEndpoint.swift in Sources */,
 				C4C0D7902A1DECA400FFE563 /* AudioPlayerManager.swift in Sources */,
 				C4C0D7792A1D0E7700FFE563 /* SongServiceProtocol.swift in Sources */,
 				C4C0D7392A1CB8EB00FFE563 /* PlaylistViewController.swift in Sources */,
+				C4C0D7B72A1E4F2C00FFE563 /* PersistenceManagerProtocol.swift in Sources */,
 				C4C0D7842A1D332F00FFE563 /* SongCellViewModelProtocol.swift in Sources */,
+				C4C0D7B52A1E4EE200FFE563 /* PersistenceManager.swift in Sources */,
 				C4C0D78A2A1D623400FFE563 /* DownloadFileManagerProtocol.swift in Sources */,
 				C4C0D76E2A1CF52B00FFE563 /* Config.swift in Sources */,
 				C4C0D7922A1DED0200FFE563 /* AudioPlayerManagerProtocol.swift in Sources */,
@@ -772,6 +784,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C4C0D7B82A1E50D000FFE563 /* PlaylistDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C4C0D7B92A1E50D000FFE563 /* PlaylistDataModel.xcdatamodel */,
+			);
+			currentVersion = C4C0D7B92A1E50D000FFE563 /* PlaylistDataModel.xcdatamodel */;
+			path = PlaylistDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C4C0D7292A1CB8EB00FFE563 /* Project object */;
 }

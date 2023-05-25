@@ -3,7 +3,7 @@ import Foundation
 public class SongService: SongServiceProtocol {
     let apiClient = APIClient()
     
-    public func getSongList(completion: @escaping ([Song]?, Error?) -> Void) {
+    public func getSongList(completion: @escaping ([SongItemResponse]?, Error?) -> Void) {
         guard let url = APIEndpoint.songList.url else {
             completion(nil, nil)
             return

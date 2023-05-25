@@ -1,5 +1,5 @@
 import Foundation
 
 public struct SongListResponse: Codable {
-    let data: [Song]?
+    let data: [SongItemResponse]?
 }
