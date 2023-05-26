@@ -37,6 +37,6 @@ This project uses the MVVM Design Pattern with separate classes for Services and
 
 ## Screenshot
 
-![Screenshot](https://gitlab.com/kayla.serioso/playlist/-/raw/dev/screenshot.png)
+![screenshot](https://github.com/kaylaserioso/Playlist/assets/2755590/a42cdc52-249e-4c43-bf30-5ed635576bf8)
 
 
